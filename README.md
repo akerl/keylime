@@ -8,7 +8,7 @@ keylime
 [![Code Quality](https://img.shields.io/codacy/.svg)](https://www.codacy.com/app/akerl/keylime)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 
-SHORT_DESCRIPTION
+Simple wrapper for using Mac Keychain
 
 ## Usage
 
