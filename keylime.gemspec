@@ -13,6 +13,9 @@ Gem::Specification.new do |s|
   s.files       = `git ls-files`.split
   s.test_files  = `git ls-files spec/*`.split
 
+  s.add_dependency 'ruby-keychain', '~> 0.3.0'
+  s.add_dependency 'userinput', '~> 1.0.0'
+
   s.add_development_dependency 'rubocop', '~> 0.35.0'
   s.add_development_dependency 'rake', '~> 10.4.0'
   s.add_development_dependency 'codecov', '~> 0.1.1'
