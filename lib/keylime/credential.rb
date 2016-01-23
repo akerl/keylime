@@ -18,12 +18,12 @@ module Keylime
     end
 
     def set(value)
-      get && delete!
+      delete!
       keychain_segment.create(@options.merge(password: value))
     end
 
     def delete!
-      keychain_segment.where(@options).first.delete
+      get && keychain_segment.where(@options).first.delete
       nil
     end
 
