@@ -8,4 +8,5 @@ if ENV['CI'] == 'true'
 end
 
 require 'rspec'
+$LOAD_PATH.unshift File.expand_path('../stub', __FILE__)
 require 'keylime'
