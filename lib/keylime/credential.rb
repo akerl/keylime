@@ -17,15 +17,6 @@ module Keylime
       get || prompt(message)
     end
 
-    def prompt(message)
-      set UserInput.new(
-        message: message,
-        secret: true,
-        attempts: 3,
-        validation: /.+/
-      ).ask
-    end
-
     def set(value)
       get && delete
       keychain_segment.create(@options.merge(password: value))
@@ -36,6 +27,15 @@ module Keylime
     end
 
     private
+
+    def prompt(message)
+      set UserInput.new(
+        message: message,
+        secret: true,
+        attempts: 3,
+        validation: /.+/
+      ).ask
+    end
 
     def keychain
       @keychain ||= if @options[:keychain]
