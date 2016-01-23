@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.email       = 'me@lesaker.org'
   s.homepage    = 'https://github.com/akerl/keylime'
   s.license     = 'MIT'
+  s.platform    = Gem::Platform.local
 
   s.files       = `git ls-files`.split
   s.test_files  = `git ls-files spec/*`.split
