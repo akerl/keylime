@@ -43,7 +43,10 @@ module Keychain
     end
 
     def where(params)
-      cache.find_all { |x| params.all? { |k, v| x[k] == v } }
+      cache.find_all do |x|
+        hash = x.marshal_dump
+        params.all? { |k, v| hash[k] == v }
+      end
     end
 
     def create(params)
