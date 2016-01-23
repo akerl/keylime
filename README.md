@@ -56,7 +56,7 @@ You can also delete a secret using .delete():
 require 'keylime'
 my_credential = Keylime.new(server: 'https://example.org', account: 'akerl')
 
-my_credential.delete
+my_credential.delete!
 ```
 
 ## Installation
