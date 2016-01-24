@@ -53,6 +53,7 @@ module Keychain
       struct = OpenStruct.new(params)
       struct.keychain = @keychain
       cache << struct
+      struct
     end
 
     private

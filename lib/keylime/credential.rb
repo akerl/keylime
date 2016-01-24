@@ -19,7 +19,7 @@ module Keylime
 
     def set(value)
       delete!
-      keychain_segment.create(@options.merge(password: value)).first
+      keychain_segment.create(@options.merge(password: value))
     end
 
     def delete!
