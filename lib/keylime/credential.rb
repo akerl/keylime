@@ -7,9 +7,11 @@ module Keylime
   class Credential
     def initialize(params = {})
       @options = params
+      @enabled = RUBY_PLATFORM =~ /darwin/ || ENV['CI']
     end
 
     def get
+      return unless @enabled
       keychain_segment.where(@options).first
     end
 

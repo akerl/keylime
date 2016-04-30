@@ -37,9 +37,8 @@ describe Keylime::Credential do
     end
     it 'prompts the user if the credential does not exist' do
       allow(STDIN).to receive(:gets) { "#{secret}\n" }
-      expect do
-        expect(subject.get!('Question').password).to eql secret
-      end.to output("Question? \n").to_stdout
+      expect(STDOUT).to receive(:print).with('Question? ')
+      expect(subject.get!('Question').password).to eql secret
     end
   end
 
