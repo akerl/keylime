@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'keylime'
-  s.version     = '0.0.3'
+  s.version     = '0.1.0'
   s.date        = Time.now.strftime('%Y-%m-%d')
 
   s.summary     = 'Simple wrapper for using Mac Keychain'
