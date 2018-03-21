@@ -78,6 +78,6 @@ module Keylime
       []
     end
 
-    def create() end
+    def create(_) end
   end
 end
