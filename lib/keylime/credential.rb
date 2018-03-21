@@ -74,7 +74,7 @@ module Keylime
   ##
   # Stub segment for if keylime is running on a non-Mac
   class StubKeychainSegment
-    def where
+    def where(_)
       []
     end
 
