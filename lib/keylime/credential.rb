@@ -47,7 +47,7 @@ module Keylime
 
     def keychain
       return @keychain if @keychain
-      @keychain = StubKeychain.new unless Keylime::ENABLED
+      @keychain = FileKeychain.new(@options[:keychain]) unless Keylime::ENABLED
       @keychain ||= Keychain.open(@options[:keychain]) if @options[:keychain]
       @keychain ||= Keychain
     end
@@ -63,9 +63,13 @@ module Keylime
 
   ##
   # Stub keychain for if keylime is running on a non-Mac
-  class StubKeychain
+  class FileKeychain
+    def initialize(keychain)
+      @keychain = keychain
+    end
+
     def segment
-      StubKeychainSegment.new
+      @segment ||= FileKeychainSegment.new(@keychain)
     end
     alias internet_passwords segment
     alias generic_passwords segment
@@ -73,11 +77,52 @@ module Keylime
 
   ##
   # Stub segment for if keylime is running on a non-Mac
-  class StubKeychainSegment
-    def where(_)
-      []
+  class FileKeychainSegment
+    def initialize(keychain)
+      @keychain = keychain || 'default'
     end
 
-    def create(_) end
+    def where(options = {})
+      entries.select do |x|
+
+      end
+    end
+
+    def create(_)
+    end
+
+    def entries
+      create_file! unless File.exist? file
+      YAML.parse(File.read(file))['credentials']
+    end
+
+    def create_file!
+      File.open(file, 'w') do |fh|
+        fh << YAML.dump({'credentials': []})
+      end
+    end
+
+    def file
+      @file ||= File.join(dir, @keychain)
+    end
+
+    def dir
+      @dir ||= File.expand_path('~/.keylime')
+    end
+  end
+
+  class FileKeychainObject
+    attr_reader :server, :service, :account, :password
+
+    def initialize(params = {})
+      @server = params[:server]
+      @service = params[:service]
+      @account = params[:account]
+      @password = params[:password]
+    end
+
+    def delete
+
+    end
   end
 end
