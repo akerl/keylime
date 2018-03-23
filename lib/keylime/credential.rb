@@ -123,7 +123,7 @@ module Keylime
 
     def write_file!(entries)
       File.open(file, 'w') do |fh|
-        fh << YAML.dump(credentials: entries.map(&:fields))
+        fh << YAML.dump('credentials' => entries.map(&:fields))
       end
     end
 
