@@ -111,7 +111,7 @@ module Keylime
 
     def entries
       create_file! unless File.exist? file
-      YAML.parse(File.read(file))['credentials'].map do |x|
+      YAML.safe_load(File.read(file))['credentials'].map do |x|
         x[:ref] = self
         FileKeychainObject.new(x)
       end
