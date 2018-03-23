@@ -1,4 +1,5 @@
 require 'userinput'
+require 'yaml'
 
 module Keylime
   ENABLED = begin
