@@ -86,7 +86,7 @@ module Keylime
     def where(fields = {})
       fields = stringify(fields)
       entries.select do |x|
-        fields.all? { |k, v| x[k] == v }
+        fields.all? { |k, v| x.fields[k] == v }
       end
     end
 
@@ -103,7 +103,7 @@ module Keylime
       raise('No fields given') if fields.empty?
       fields = stringify(fields)
       new = entries.select do |x|
-        fields.any? { |k, v| x[k] != v }
+        fields.any? { |k, v| x.fields[k] != v }
       end
       write_file! new
     end
