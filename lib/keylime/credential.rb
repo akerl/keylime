@@ -79,50 +79,80 @@ module Keylime
   # Stub segment for if keylime is running on a non-Mac
   class FileKeychainSegment
     def initialize(keychain)
-      @keychain = keychain || 'default'
+      @keychain = keychain || '~/.keylime'
     end
 
-    def where(options = {})
+    def where(fields = {})
+      fields = stringify(fields)
       entries.select do |x|
-
+        fields.all? { |k, v| x[k] == v }
       end
     end
 
-    def create(_)
+    def create(fields = {})
+      raise('No fields given') if fields.empty?
+      fields = stringify(fields)
+      new = entries
+      new << FileKeychainObject.new(fields)
+      write_file new
+    end
+
+    def delete(fields = {})
+      raise('No fields given') if fields.empty?
+      fields = stringify(fields)
+      new = entries.select do |x|
+        fields.any? { |k, v| x[k] != v }
+      end
+      write_file new
     end
 
     def entries
       create_file! unless File.exist? file
-      YAML.parse(File.read(file))['credentials']
+      YAML.parse(File.read(file))['credentials'].map do |x|
+        x[:ref] = self
+        FileKeychainObject.new(x)
+      end
     end
 
     def create_file!
+      write_file!([])
+    end
+
+    def write_file(entries)
       File.open(file, 'w') do |fh|
-        fh << YAML.dump({'credentials': []})
+        fh << YAML.dump(credentials: entries.map(&:fields))
       end
     end
 
     def file
-      @file ||= File.join(dir, @keychain)
+      @file ||= File.expand_path @keychain
     end
 
-    def dir
-      @dir ||= File.expand_path('~/.keylime')
+    def stringify(fields)
+      fields.map { |k, v| [k.to_s, v] }.to_h
     end
   end
 
+  ##
+  # Object for stub file keychain
   class FileKeychainObject
-    attr_reader :server, :service, :account, :password
+    attr_reader :fields
 
     def initialize(params = {})
-      @server = params[:server]
-      @service = params[:service]
-      @account = params[:account]
-      @password = params[:password]
+      @ref = params.delete(:ref)
+      @fields = params
     end
 
     def delete
+      @ref.delete(@fields)
+    end
 
+    def respond_to_missing?(method, _)
+      @fields.include?(method.to_s) || super
+    end
+
+    def method_missing(sym, *args, &block)
+      @fields[sym.to_s] || super
     end
   end
 end
