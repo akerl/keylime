@@ -94,7 +94,7 @@ module Keylime
       fields = stringify(fields)
       new = entries
       new << FileKeychainObject.new(fields)
-      write_file new
+      write_file! new
     end
 
     def delete(fields = {})
@@ -103,8 +103,10 @@ module Keylime
       new = entries.select do |x|
         fields.any? { |k, v| x[k] != v }
       end
-      write_file new
+      write_file! new
     end
+
+    private
 
     def entries
       create_file! unless File.exist? file
@@ -118,7 +120,7 @@ module Keylime
       write_file!([])
     end
 
-    def write_file(entries)
+    def write_file!(entries)
       File.open(file, 'w') do |fh|
         fh << YAML.dump(credentials: entries.map(&:fields))
       end
