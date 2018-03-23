@@ -93,9 +93,10 @@ module Keylime
     def create(fields = {})
       raise('No fields given') if fields.empty?
       fields = stringify(fields)
-      new = entries
-      new << FileKeychainObject.new(fields)
-      write_file! new
+      fields['ref'] = self
+      new = FileKeychainObject.new(fields)
+      write_file! entries + [new]
+      new
     end
 
     def delete(fields = {})
@@ -112,7 +113,7 @@ module Keylime
     def entries
       create_file! unless File.exist? file
       YAML.safe_load(File.read(file))['credentials'].map do |x|
-        x[:ref] = self
+        x['ref'] = self
         FileKeychainObject.new(x)
       end
     end
@@ -142,7 +143,7 @@ module Keylime
     attr_reader :fields
 
     def initialize(params = {})
-      @ref = params.delete(:ref)
+      @ref = params.delete('ref')
       @fields = params
     end
 
