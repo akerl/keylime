@@ -3,12 +3,12 @@ require 'yaml'
 
 module Keylime
   ENABLED = begin
-    require 'keychain'
-    true
-  rescue LoadError
-    raise if RUBY_PLATFORM =~ /darwin/
-    false
-  end
+              require 'keychain'
+              true
+            rescue LoadError
+              raise if RUBY_PLATFORM =~ /darwin/
+              false
+            end
 
   ##
   # Easy wrapper around getting and setting secrets
