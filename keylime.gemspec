@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name        = 'keylime'
   s.version     = '0.2.1'
-  s.date        = Time.now.strftime('%Y-%m-%d')
+  s.required_ruby_version = '>= 2.6'
 
   s.summary     = 'Simple wrapper for using Mac Keychain'
   s.description = 'Simple wrapper for using Mac Keychain'
@@ -11,7 +11,6 @@ Gem::Specification.new do |s|
   s.license     = 'MIT'
 
   s.files       = `git ls-files`.split
-  s.test_files  = `git ls-files spec/*`.split
 
   s.add_dependency 'ruby-keychain', '~> 0.3.0'
   s.add_dependency 'userinput', '~> 1.0.0'
@@ -21,4 +20,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '~> 13.0.0'
   s.add_development_dependency 'rspec', '~> 3.11.0'
   s.add_development_dependency 'rubocop', '~> 1.35.0'
+  s.metadata['rubygems_mfa_required'] = 'true'
 end

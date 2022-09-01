@@ -50,7 +50,7 @@ module Keychain
     end
 
     def create(params)
-      struct = OpenStruct.new(params)
+      struct = OpenStruct.new(params) # rubocop:disable Style/OpenStructUse
       struct.keychain = @keychain
       cache << struct
       struct
