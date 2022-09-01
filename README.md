@@ -2,9 +2,7 @@ keylime
 =========
 
 [![Gem Version](https://img.shields.io/gem/v/keylime.svg)](https://rubygems.org/gems/keylime)
-[![Build Status](https://img.shields.io/travis/com/akerl/keylime.svg)](https://travis-ci.com/akerl/keylime)
-[![Coverage Status](https://img.shields.io/codecov/c/github/akerl/keylime.svg)](https://codecov.io/github/akerl/keylime)
-[![Code Quality](https://img.shields.io/codacy/b84e51f348094a33b2982bfb73adc645.svg)](https://www.codacy.com/app/akerl/keylime)
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/akerl/keylime/Build)](https://github.com/akerl/keylime/actions)
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-green.svg)](https://tldrlegal.com/license/mit-license)
 
 Simple wrapper for using Mac Keychain
